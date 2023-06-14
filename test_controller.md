@@ -70,11 +70,11 @@ ttymidi -s /dev/ttyACM0
 
 # 4. Configure Mixxx
 
-Open Mixxx.
-Go to "Options" -> "Preferences".
-In the Preferences window, go to "Controllers".
-Under the "Input Controller" section, you should see the ttymidi port. Enable it by checking the box.
-With the ttymidi port selected, click on the "MIDI LEARN" button.
-In the MIDI Learn screen, find the "VolumeDeck1" control.
-Click on the "MIDI LEARN" button next to "VolumeDeck1", then turn the potentiometer on your physical controller. Mixxx should detect the MIDI message from the Arduino and map it to the volume control.
-Click "OK" to save your changes.
+1. Open Mixxx.
+2. Go to "Options" -> "Preferences".
+3. In the Preferences window, go to "Controllers".
+4. Under the "Input Controller" section, you should see the ttymidi port. Enable it by checking the box.
+5. With the ttymidi port selected, click on the "MIDI LEARN" button.
+6. In the MIDI Learn screen, find the "VolumeDeck1" control.
+7. Click on the "MIDI LEARN" button next to "VolumeDeck1", then turn the potentiometer on your physical controller. Mixxx should detect the MIDI message from the 8. Arduino and map it to the volume control.
+9. Click "OK" to save your changes.
