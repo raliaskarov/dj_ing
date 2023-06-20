@@ -79,12 +79,12 @@ lsusb
 ```
 
 NB: to bring device back into Aurduino mode (e.g. to write sketches into it):
-Short (i.e. connect and disconnect) two leftmose pins of the bottom row of ICSP header of 16U2 chip (having power of Arduino to the left).
+Short (i.e. connect and keep connected) two leftmost pins of the bottom row of ICSP header of 16U2 chip (having power of Arduino to the left).
 See result
 ```
 lsusb
 ```
-
+Remove short to get back to MIDI mode.
 
 
 # 4. Configure Mixxx
