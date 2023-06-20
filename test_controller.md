@@ -39,33 +39,52 @@ void loop() {
 
 ```
 
-# 3. On RPI get signal from Arduino, convert to MIDI
-OPTION 1
-We'll use FortySevenEffects' Arduino MIDI Library. Chat GPT first told me to use ttymidi, but in README I saw that it is soon to be deprecated and recommendation to go for 47Effects.
-- Go to https://github.com/FortySevenEffects/arduino_midi_library
-- Click the green "Code" button which is towards the top right.
-- In the dropdown, click "Download ZIP".
-- Save the ZIP file to your computer.
-- Open the Arduino IDE.
-- In the Arduino IDE, navigate to Sketch > Include Library > Add .ZIP Library...
-- In the file dialog that opens, navigate to where you saved the downloaded ZIP file and select it.
-- Click "Open". The Arduino IDE will then install the library for you. You can verify this by going to Sketch > Include Library. In the list of libraries, you should now see "MIDI Library".
-- Restart Arduino.
+# 3. Flash Arduino into MIDI class compliant device of required
+Required of you use  ATmega16U2 chip for data transfer. That's if you own Arduino UNO or MEGA because their chips aren't recognized as audio device.
+We'll use mocoLUFA https://github.com/kuwatay/mocolufa
+Here's video guide https://www.youtube.com/watch?v=-bCz2I9SMAA&t=227s
 
-OPTION 2
-Using ttymidi on Linux
+I work on Raspberry PI.
+Install firmware programmer 
 ```
-git clone https://github.com/cjbarnes18/ttymidi.git
-cd ttymidi
-make
-sudo make install
+sudo apt-get update
+sudo apt-get install dfu-programmer
 ```
-Determine the serial port for the Arduino by typing ls /dev/tty* in the terminal. It should show up as something like /dev/ttyACM0 or /dev/ttyUSB0.
+Get the firmware we need
+```
+wget https://morecatlab.akiba.coocan.jp/lab/morecat-lab/MocoLUFA.2014.03.19.zip
+unzip MocoLUFA.2014.03.19.zip
+```
+See your device now recognized as Arduino
+```
+lsusb
+```
+Put device into DFU mode by looping 2 leftmost pins from top and bottom row of ICSP header of the 16U2 chip (having power of Arduino to the left).
+Now your device will be recognized differently
+```
+lsusb
+```
+Rewrite firmware
+```
+sudo dfu-programmer atmega16u2 erase
+sudo dfu-programmer atmega16u2 flash MocoLUFA.2014.03.19/ArduinoUNOR3/Arduino-usbserial-uno.hex
+sudo dfu-programmer atmega16u2 reset
+```
+Replace "MocoLUFA.2014.03.19/ArduinoUNOR3/Arduino-usbserial-uno.hex" with the actual path to Arduino-usbserial-uno.hex file.
+Reset device, unplug and plug to power.
 
-Start ttymidi, replace ACM0 with your port
+Confirm it's now seen as USB audio
 ```
-ttymidi -s /dev/ttyACM0
+lsusb
 ```
+
+NB: to bring device back into Aurduino mode (e.g. to write sketches into it):
+Short (i.e. connect and disconnect) two leftmose pins of the bottom row of ICSP header of 16U2 chip (having power of Arduino to the left).
+See result
+```
+lsusb
+```
+
 
 
 # 4. Configure Mixxx
