@@ -7,6 +7,7 @@ Hardware controlled with Arduino.
 # 1. Place potentiometer (pot) on the breadboard, do wiring.
 
 # 2. Program Arduino
+Install MIDI library: https://github.com/FortySevenEffects/arduino_midi_library
 ```
 #include <MIDI.h>
 
